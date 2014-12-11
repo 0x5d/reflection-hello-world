@@ -2,12 +2,85 @@ package com.talosdigital.reflection.test;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import com.talosdigital.reflection.Logger;
 
 public class LoggerTest {
-
+	
 	@Test
-	public void testPerson() throws IllegalAccessException {
+	public void testStringObject() throws IllegalAccessException{
+		Logger log = new Logger();
+		String actual = log.inspectObject("Merry Christmas!");
+		String expected =
+				"Class: String\n"
+				+ "Fields:\n"
+				+ "  value: Merry Christmas!\n";
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testPrimitive() throws IllegalAccessException{
+		Logger log = new Logger();
+		String actual = log.inspectObject(1);
+		String expected =
+				"Class: Integer\n"
+				+ "Fields:\n"
+				+ "  value: 1\n";
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testArray() throws IllegalAccessException{
+		Logger log = new Logger();
+		String actual = log.inspectObject(new Double[]{2.0, 3.0});
+		String expected =
+				"Class: Double[]\n"
+				+ "Fields:\n"
+				+ "  [\n"
+				+ "    Class: Double\n"
+				+ "    Fields:\n"
+				+ "      value: 2.0\n"
+				+ "    Class: Double\n"
+				+ "    Fields:\n"
+				+ "      value: 3.0\n"
+				+ "  ]\n";
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testMatrix() throws IllegalAccessException{
+		Logger log = new Logger();
+		String actual = log.inspectObject(new String[][]{{"Chicago", "New York"}, {"IL", "NY"}});
+		String expected =
+				"Class: String[][]\n"
+				+ "Fields:\n"
+				+ "  [\n"
+				+ "    Class: String[]\n"
+				+ "    Fields:\n"
+				+ "      [\n"
+				+ "        Class: String\n"
+				+ "        Fields:\n"
+				+ "          value: Chicago\n"
+				+ "        Class: String\n"
+				+ "        Fields:\n"
+				+ "          value: New York\n"
+				+ "      ]\n"
+				+ "    Class: String[]\n"
+				+ "    Fields:\n"
+				+ "      [\n"
+				+ "        Class: String\n"
+				+ "        Fields:\n"
+				+ "          value: IL\n"
+				+ "        Class: String\n"
+				+ "        Fields:\n"
+				+ "          value: NY\n"
+				+ "      ]\n"
+				+ "  ]\n";
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testPersonObject() throws IllegalAccessException {
 		Person p = new Person();
 		p.name = "John";
 		p.lastName = "Doe";
@@ -79,7 +152,6 @@ public class LoggerTest {
 				+ "      ]\n\n";
 		
 		String desc = log.inspectObject(p);
-		System.out.println(desc);
 		Assert.assertEquals(expected, desc);
 	}
 
