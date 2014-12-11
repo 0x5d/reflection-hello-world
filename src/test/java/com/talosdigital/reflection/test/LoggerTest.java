@@ -3,14 +3,13 @@ package com.talosdigital.reflection.test;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.talosdigital.reflection.Logger;
+import com.talosdigital.reflection.ObjectLogger;
 
-public class LoggerTest {
+public class ObjectLoggergerTest {
 	
 	@Test
 	public void testStringObject() throws IllegalAccessException{
-		Logger log = new Logger();
-		String actual = log.inspectObject("Merry Christmas!");
+		String actual = ObjectLogger.inspectObject("Merry Christmas!");
 		String expected =
 				"Class: String\n"
 				+ "Fields:\n"
@@ -20,8 +19,7 @@ public class LoggerTest {
 	
 	@Test
 	public void testPrimitive() throws IllegalAccessException{
-		Logger log = new Logger();
-		String actual = log.inspectObject(1);
+		String actual = ObjectLogger.inspectObject(1);
 		String expected =
 				"Class: Integer\n"
 				+ "Fields:\n"
@@ -31,8 +29,7 @@ public class LoggerTest {
 	
 	@Test
 	public void testArray() throws IllegalAccessException{
-		Logger log = new Logger();
-		String actual = log.inspectObject(new Double[]{2.0, 3.0});
+		String actual = ObjectLogger.inspectObject(new Double[]{2.0, 3.0});
 		String expected =
 				"Class: Double[]\n"
 				+ "Fields:\n"
@@ -49,8 +46,7 @@ public class LoggerTest {
 	
 	@Test
 	public void testMatrix() throws IllegalAccessException{
-		Logger log = new Logger();
-		String actual = log.inspectObject(new String[][]{{"Chicago", "New York"}, {"IL", "NY"}});
+		String actual = ObjectLogger.inspectObject(new String[][]{{"Chicago", "New York"}, {"IL", "NY"}});
 		String expected =
 				"Class: String[][]\n"
 				+ "Fields:\n"
@@ -95,7 +91,6 @@ public class LoggerTest {
 		child.lastName = "Doe";
 		child.age = 6;
 		p.children = new Person[]{child};
-		Logger log = new Logger();
 		
 		String expected =
 				"Class: Person\n"
@@ -151,8 +146,7 @@ public class LoggerTest {
 				+ "          children: null\n"
 				+ "      ]\n\n";
 		
-		String desc = log.inspectObject(p);
+		String desc = ObjectLogger.inspectObject(p);
 		Assert.assertEquals(expected, desc);
 	}
-
 }

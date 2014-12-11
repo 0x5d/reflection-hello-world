@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
  * @author castillobg
  *
  */
-public class Logger {
+public class ObjectLogger {
 	
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class Logger {
 	 * @return The object description string.
 	 * @throws IllegalAccessException
 	 */
-	public String inspectObject(Object object) throws IllegalAccessException{
+	public static String inspectObject(Object object) throws IllegalAccessException{
 		// Root object. Call overloaded method with hierarchy level 0.
 		return inspectObject(object, 0);
 	}
@@ -30,7 +30,7 @@ public class Logger {
 	 * @return The object description string.
 	 * @throws IllegalAccessException
 	 */
-	private String inspectObject(Object object, int hierarchyLevel) throws IllegalAccessException{
+	private static String inspectObject(Object object, int hierarchyLevel) throws IllegalAccessException{
 		// description will hold the object's description.
 		StringBuilder description = new StringBuilder();
 		// Format accordingly.
@@ -50,7 +50,7 @@ public class Logger {
 	 * @return The object's fields' description.
 	 * @throws IllegalAccessException
 	 */
-	private String getFieldsDescription(Object object, int hierarchyLevel)
+	private static String getFieldsDescription(Object object, int hierarchyLevel)
 			throws IllegalAccessException{
 		// fieldsDescription will hold the object's fields' description.
 		StringBuilder fieldsDescription = new StringBuilder();
@@ -112,7 +112,7 @@ public class Logger {
 	 * @param hierarchyLevel The current object hierarchy level.
 	 * @return The class' description.
 	 */
-	private String getClassDescription(Object object, int hierarchyLevel) {
+	private static String getClassDescription(Object object, int hierarchyLevel) {
 		StringBuilder classDescription = new StringBuilder();
 		classDescription.append("Class: ");
 		classDescription.append(object.getClass().getSimpleName());
@@ -124,7 +124,7 @@ public class Logger {
 	 * @param level The hierarchy level to append tabs to.
 	 * @return
 	 */
-	private String getTabs(int level){
+	private static String getTabs(int level){
 		StringBuilder tabs = new StringBuilder();
 		tabs.append("");
 		for(int i = 0; i < level; i++){
