@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.talosdigital.reflection.ObjectLogger;
 
-public class ObjectLoggergerTest {
+public class ObjectLoggerTest {
 	
 	@Test
 	public void testStringObject() throws IllegalAccessException{
