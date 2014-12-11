@@ -12,10 +12,23 @@ import java.lang.reflect.Field;
  */
 public class Logger {
 	
+	/**
+	 * 
+	 * @param object
+	 * @return
+	 * @throws IllegalAccessException
+	 */
 	public String inspectObject(Object object) throws IllegalAccessException{
 		return inspectObject(object, 0);
 	}
 	
+	/**
+	 * 
+	 * @param object
+	 * @param levelsDeep
+	 * @return
+	 * @throws IllegalAccessException
+	 */
 	private String inspectObject(Object object, int levelsDeep) throws IllegalAccessException{
 		StringBuilder description = new StringBuilder();
 		description.append(getTabs(levelsDeep));
@@ -25,6 +38,13 @@ public class Logger {
 		return description.toString();
 	}
 
+	/**
+	 * 
+	 * @param object
+	 * @param levelsDeep
+	 * @return
+	 * @throws IllegalAccessException
+	 */
 	private String getFieldsDescription(Object object, int levelsDeep)
 			throws IllegalAccessException{
 		
@@ -44,18 +64,18 @@ public class Logger {
 				fieldsDescription.append("[\n");
 				fieldsDescription.append(inspectObject(obj, levelsDeep + 2));
 				fieldsDescription.append(getTabs(levelsDeep + 1));
-				fieldsDescription.append("]\n");
+				fieldsDescription.append("]");
 			}
 		}
 		else {
-			for(Field field : fields){
+			for(int i = 0; i < fields.length; i++){
+				Field field = fields[i];
 				fieldsDescription.append(getTabs(levelsDeep + 1));
 				fieldsDescription.append(field.getName());
 				fieldsDescription.append(": ");
 				if(field.get(object) != null){
 					if(field.getClass().isPrimitive()){
 						fieldsDescription.append(field.get(object).toString());
-						fieldsDescription.append("\n");
 					}
 					else{
 						fieldsDescription.append("\n");
@@ -64,14 +84,21 @@ public class Logger {
 					}
 				}
 				else{
-					fieldsDescription.append("null");
-					fieldsDescription.append("\n");
+					String nullFieldValue =
+							(i < fields.length - 1) ? "null\n" : "null";
+					fieldsDescription.append(nullFieldValue);
 				}
 			}
 		}
 		return fieldsDescription.toString();
 	}
 
+	/**
+	 * 
+	 * @param object
+	 * @param levelsDeep
+	 * @return
+	 */
 	private String getClassDescription(Object object, int levelsDeep) {
 		StringBuilder classDescription = new StringBuilder();
 		classDescription.append("Class: ");
@@ -79,10 +106,16 @@ public class Logger {
 		return classDescription.toString();
 	}
 	
+	/**
+	 * 
+	 * @param level
+	 * @return
+	 */
 	private String getTabs(int level){
 		StringBuilder tabs = new StringBuilder();
+		tabs.append("");
 		for(int i = 0; i < level; i++){
-			tabs.append("  ");
+			tabs.append("\u0020\u0020");
 		}
 		return tabs.toString();
 	}
