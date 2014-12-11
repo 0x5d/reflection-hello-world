@@ -55,7 +55,12 @@ public class Logger {
 		if(object instanceof String){
 			fieldsDescription.append(getTabs(levelsDeep + 1));
 			fieldsDescription.append("value: ");
-			fieldsDescription.append((String)object);
+			fieldsDescription.append(object);
+		}
+		else if(InspectionUtils.isWrapperType(object.getClass())){
+			fieldsDescription.append(getTabs(levelsDeep + 1));
+			fieldsDescription.append("value: ");
+			fieldsDescription.append(object);
 		}
 		else if(object.getClass().isArray()){
 			Object[] arrayObject = (Object[])object;
@@ -74,14 +79,9 @@ public class Logger {
 				fieldsDescription.append(field.getName());
 				fieldsDescription.append(": ");
 				if(field.get(object) != null){
-					if(field.getClass().isPrimitive()){
-						fieldsDescription.append(field.get(object).toString());
-					}
-					else{
-						fieldsDescription.append("\n");
-						fieldsDescription.append(inspectObject(field.get(object),
-								levelsDeep + 2));
-					}
+					fieldsDescription.append("\n");
+					fieldsDescription.append(inspectObject(field.get(object),
+							levelsDeep + 2));
 				}
 				else{
 					String nullFieldValue =
