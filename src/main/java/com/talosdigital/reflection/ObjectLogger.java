@@ -1,6 +1,8 @@
 package com.talosdigital.reflection;
 
 import java.lang.reflect.Field;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 
@@ -20,7 +22,10 @@ public class ObjectLogger {
 	 */
 	public static String inspectObject(Object object) throws IllegalAccessException{
 		// Root object. Call overloaded method with hierarchy level 0.
-		return inspectObject(object, 0);
+		String description = inspectObject(object, 0);
+		final Logger logger = LogManager.getLogger(ObjectLogger.class);
+		logger.debug(description);
+		return description;
 	}
 	
 	/**
